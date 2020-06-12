@@ -1,4 +1,4 @@
-# Spring Cloud AKS
+# Spring Cloud
 
 An example of using the following technologies:
 
