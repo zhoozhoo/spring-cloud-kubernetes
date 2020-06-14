@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"name": "guest-services",
+			"path": "guest-services"
+		},
+		{
+			"name": "reservation-services",
+			"path": "reservation-services"
+		},
+		{
+			"name": "room-services",
+			"path": "room-services"
+		},
+		{
+			"name": "config-server",
+			"path": "config-server"
+		},
+		{
+			"name": "eureka-server",
+			"path": "eureka-server"
+		},
+		{
+			"name": "room-reservation-service",
+			"path": "room-reservation-service"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}
