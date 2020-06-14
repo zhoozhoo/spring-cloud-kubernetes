@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,21 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/room-reservations")
 public class RoomReservationWebService {
 
-    private final RoomClient roomClient;
+    @Autowired
+    protected RoomClient roomClient;
 
-    private final GuestClient guestClient;
+    @Autowired
+    protected GuestClient guestClient;
 
-    private final ReservationClient reservationClient;
+    @Autowired
+    protected ReservationClient reservationClient;
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-
-    public RoomReservationWebService(RoomClient roomClient, GuestClient guestClient,
-            ReservationClient reservationClient) {
-        super();
-        this.roomClient = roomClient;
-        this.guestClient = guestClient;
-        this.reservationClient = reservationClient;
-    }
 
     @GetMapping
     public List<RoomReservation> getRoomReservations(@RequestParam(name = "date", required = false) String dateString) {

@@ -1,5 +1,6 @@
 package ca.zhoozhoo.lil.guestservices;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,12 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/guests")
 public class GuestWebServices {
 
-    private final GuestRepository guestRepository;
-
-    public GuestWebServices(GuestRepository guestRepository) {
-        super();
-        this.guestRepository = guestRepository;
-    }
+    @Autowired
+    protected GuestRepository guestRepository;
 
     @GetMapping
     Iterable<Guest> getAllGuests() {
