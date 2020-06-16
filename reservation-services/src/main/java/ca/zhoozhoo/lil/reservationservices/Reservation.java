@@ -2,31 +2,24 @@ package ca.zhoozhoo.lil.reservationservices;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
 
-@Entity
-@Table(name = "RESERVATION")
+@Table
 @Data
 public class Reservation {
 
     @Id
-    @Column(name = "RESERVATION_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column("RESERVATION_ID")
     private long id;
 
-    @Column(name = "ROOM_ID")
     private long roomId;
 
-    @Column(name = "GUEST_ID")
     private long guestId;
 
-    @Column(name = "RES_DATE")
+    @Column("RES_DATE")
     private Date date;
 }

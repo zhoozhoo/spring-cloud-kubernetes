@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 @RestController
 @RequestMapping("/reservations")
 public class ReservationWebServices {
@@ -17,7 +20,7 @@ public class ReservationWebServices {
     protected ReservationRepository reservationRepository;
 
     @GetMapping
-    Iterable<Reservation> getReservations(@RequestParam(name = "date", required = false) Date date) {
+    public Flux<Reservation> getReservations(@RequestParam(name = "date", required = false) Date date) {
         if (date != null) {
             return reservationRepository.findAllByDate(date);
         }
@@ -26,7 +29,7 @@ public class ReservationWebServices {
     }
 
     @GetMapping("/{id}")
-    public Reservation getReservation(@PathVariable("id") long id) {
-        return reservationRepository.findById(id).get();
+    public Mono<Reservation> getReservation(@PathVariable("id") long id) {
+        return reservationRepository.findById(id);
     }
 }

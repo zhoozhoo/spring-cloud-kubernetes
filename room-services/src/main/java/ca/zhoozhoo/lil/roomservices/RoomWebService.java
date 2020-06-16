@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 @RestController
 @RequestMapping("/rooms")
 public class RoomWebService {
@@ -14,12 +17,12 @@ public class RoomWebService {
     protected RoomRepository repository;
 
     @GetMapping
-    public Iterable<Room> getAllRooms() {
+    public Flux<Room> getAllRooms() {
         return this.repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Room getRoom(@PathVariable("id") long id) {
-        return this.repository.findById(id).get();
+    public Mono<Room> getRoom(@PathVariable("id") long id) {
+        return this.repository.findById(id);
     }
 }
