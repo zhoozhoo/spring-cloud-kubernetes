@@ -1,6 +1,6 @@
 package ca.zhoozhoo.lil.roomreservationservice;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -13,5 +13,5 @@ public class Reservation {
 
     private long guestId;
 
-    private Date date;
+    private LocalDate date;
 }

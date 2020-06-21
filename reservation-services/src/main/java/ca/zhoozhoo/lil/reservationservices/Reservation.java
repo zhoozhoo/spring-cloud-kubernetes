@@ -1,6 +1,6 @@
 package ca.zhoozhoo.lil.reservationservices;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
@@ -21,5 +21,5 @@ public class Reservation {
     private long guestId;
 
     @Column("RES_DATE")
-    private Date date;
+    private LocalDate date;
 }

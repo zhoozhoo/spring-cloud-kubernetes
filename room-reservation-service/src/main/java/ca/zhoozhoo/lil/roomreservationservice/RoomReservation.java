@@ -1,6 +1,6 @@
 package ca.zhoozhoo.lil.roomreservationservice;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class RoomReservation {
 
@@ -16,7 +16,7 @@ public class RoomReservation {
 
     private String lastName;
 
-    private Date date;
+    private LocalDate date;
 
     public long getRoomId() {
         return roomId;
@@ -66,11 +66,11 @@ public class RoomReservation {
         this.lastName = lastName;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }
