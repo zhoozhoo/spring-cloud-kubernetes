@@ -23,6 +23,13 @@
 		{
 			"name": "room-reservation-service",
 			"path": "room-reservation-service"
+		},
+		{
+			"path": "."
+		},
+		{
+			"name": "api-gateway",
+			"path": "api-gateway"
 		}
 	],
 	"settings": {
