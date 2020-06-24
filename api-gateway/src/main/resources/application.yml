@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: guestsservices
+          uri: lb://guestservices
+          predicates:
+            - Path=/guests/**
+        - id: reservationservices
+          uri: lb://reservationservices
+          predicates:
+            - Path=/reservations/**
+        - id: roomservices
+          uri: lb://roomservices
+          predicates:
+            - Path=/rooms/**
+        - id: roomreservationservices
+          uri: lb://roomreservationservices
+          predicates:
+            - Path=/room-reservations/**
