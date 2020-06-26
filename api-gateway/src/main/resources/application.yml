@@ -5,19 +5,19 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: guestsservices
-          uri: lb://guestservices
+        - id: guest-service
+          uri: lb://guest-service
           predicates:
             - Path=/guests/**
-        - id: reservationservices
-          uri: lb://reservationservices
+        - id: reservation-service
+          uri: lb://reservation-service
           predicates:
             - Path=/reservations/**
-        - id: roomservices
-          uri: lb://roomservices
+        - id: room-service
+          uri: lb://room-service
           predicates:
             - Path=/rooms/**
-        - id: roomreservationservices
-          uri: lb://roomreservationservices
+        - id: room-reservation-service
+          uri: lb://room-reservation-service
           predicates:
             - Path=/room-reservations/**

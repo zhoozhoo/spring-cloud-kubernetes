@@ -5,6 +5,5 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/zhoozhoo/spring-cloud.git
-          searchPaths: config
+          uri: https://github.com/zhoozhoo/spring-cloud-config.git
           force-pull: true
