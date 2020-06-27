@@ -29,6 +29,9 @@
         <java.version>14</java.version>
         <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
+        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
+        <docker.image.prefix>zhoozhoo</docker.image.prefix>
+        <docker.image.dockerfile.dir>${basedir}</docker.image.dockerfile.dir>
     </properties>
 
     <dependencyManagement>
@@ -71,4 +74,39 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.spotify</groupId>
+                            <artifactId>dockerfile-maven-plugin</artifactId>
+                            <version>${dockerfile-maven-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>default</id>
+                                    <goals>
+                                        <goal>build</goal>
+                                        <goal>push</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <contextDirectory>..</contextDirectory>
+                                <dockerfile>../docker/Dockerfile</dockerfile>
+                                <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                                <tag>${project.version}</tag>
+                                <buildArgs>
+                                    <JAR_FILE>${project.artifactId}/target/${project.build.finalName}.${project.packaging}</JAR_FILE>
+                                </buildArgs>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 </project>
