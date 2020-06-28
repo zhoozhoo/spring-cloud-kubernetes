@@ -9,9 +9,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>eureka-server</artifactId>
-    <name>Eureka Server</name>
-    <description>Sample Eureka Server</description>
+    <artifactId>discovery-server</artifactId>
+    <name>Discovery Server</name>
+    <description>Sample Spring Cloud Discovery Server</description>
 
     <dependencies>
         <!-- Spring Cloud -->

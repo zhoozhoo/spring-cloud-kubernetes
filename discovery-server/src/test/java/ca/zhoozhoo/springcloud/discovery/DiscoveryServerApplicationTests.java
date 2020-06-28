@@ -1,13 +1,12 @@
-package ca.zhoozhoo.lil.eurekaserver;
+package ca.zhoozhoo.springcloud.discovery;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class DiscoveryServerApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-
 }

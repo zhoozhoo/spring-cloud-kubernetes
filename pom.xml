@@ -17,7 +17,7 @@
 
     <modules>
         <module>config-server</module>
-        <module>eureka-server</module>
+        <module>discovery-server</module>
         <module>api-gateway</module>
         <module>guest-services</module>
         <module>reservation-services</module>
