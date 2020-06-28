@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.configserver;
+package ca.zhoozhoo.springcloud.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,5 +11,4 @@ public class ConfigServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ConfigServerApplication.class, args);
 	}
-
 }

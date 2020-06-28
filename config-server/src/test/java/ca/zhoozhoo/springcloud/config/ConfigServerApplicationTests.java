@@ -1,13 +1,12 @@
-package ca.zhoozhoo.lil.configserver;
+package ca.zhoozhoo.springcloud.config;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class ConfigServerApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-
 }
