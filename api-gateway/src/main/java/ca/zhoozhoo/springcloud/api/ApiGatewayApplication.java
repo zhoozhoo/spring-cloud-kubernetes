@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.gateway;
+package ca.zhoozhoo.springcloud.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

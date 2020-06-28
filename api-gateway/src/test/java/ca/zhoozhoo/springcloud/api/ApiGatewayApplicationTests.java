@@ -1,13 +1,12 @@
-package ca.zhoozhoo.lil.apigateway;
+package ca.zhoozhoo.springcloud.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class ApiGatewayApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-
 }
