@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.guestservices;
+package ca.zhoozhoo.springcloud.guests;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,10 +15,10 @@ import io.r2dbc.spi.ConnectionFactory;
 @SpringBootApplication
 @EnableWebFlux
 @EnableDiscoveryClient
-public class GuestServicesApplication {
+public class GuestServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GuestServicesApplication.class, args);
+		SpringApplication.run(GuestServiceApplication.class, args);
 	}
 
 	@Bean

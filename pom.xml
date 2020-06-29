@@ -19,7 +19,7 @@
         <module>config-server</module>
         <module>discovery-server</module>
         <module>api-gateway</module>
-        <module>guest-services</module>
+        <module>guest-service</module>
         <module>reservation-services</module>
         <module>room-reservation-service</module>
         <module>room-services</module>

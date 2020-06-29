@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.guestservices;
+package ca.zhoozhoo.springcloud.guests.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.zhoozhoo.springcloud.guests.dao.GuestRepository;
+import ca.zhoozhoo.springcloud.guests.model.Guest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/guests")
-public class GuestWebServices {
+public class GuestContrller {
 
     @Autowired
     protected GuestRepository guestRepository;

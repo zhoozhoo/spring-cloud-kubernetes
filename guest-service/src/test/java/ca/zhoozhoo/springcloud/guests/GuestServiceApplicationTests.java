@@ -1,13 +1,12 @@
-package ca.zhoozhoo.lil.guestservices;
+package ca.zhoozhoo.springcloud.guests;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class GuestServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-
 }

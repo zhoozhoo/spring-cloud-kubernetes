@@ -7,9 +7,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>guest-services</artifactId>
-    <name>Guest Services</name>
-    <description>Sample Spring Boot Project</description>
+    <artifactId>guest-service</artifactId>
+    <name>Guest Service</name>
+    <description>Sample Spring Boot Microservice</description>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -64,4 +64,18 @@
             </exclusions>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.guestservices;
+package ca.zhoozhoo.springcloud.guests.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
