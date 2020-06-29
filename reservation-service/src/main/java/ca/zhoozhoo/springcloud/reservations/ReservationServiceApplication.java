@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.reservationservices;
+package ca.zhoozhoo.springcloud.reservations;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,10 +15,10 @@ import io.r2dbc.spi.ConnectionFactory;
 @SpringBootApplication
 @EnableWebFlux
 @EnableDiscoveryClient
-public class ReservationServicesApplication {
+public class ReservationServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReservationServicesApplication.class, args);
+		SpringApplication.run(ReservationServiceApplication.class, args);
 	}
 
 	@Bean

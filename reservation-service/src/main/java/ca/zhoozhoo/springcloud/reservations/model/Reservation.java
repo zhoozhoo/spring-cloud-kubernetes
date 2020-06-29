@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.reservationservices;
+package ca.zhoozhoo.springcloud.reservations.model;
 
 import java.time.LocalDate;
 

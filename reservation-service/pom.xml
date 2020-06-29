@@ -9,9 +9,14 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>reservation-services</artifactId>
-    <name>Reservation Services</name>
-    <description>Sample Spring Boot Project</description>
+    <artifactId>reservation-service</artifactId>
+    <name>Reservation Service</name>
+    <description>Sample Spring Boot Microservice</description>
+
+    <properties>
+        <docker.image.exposed.port>8801</docker.image.exposed.port>
+        <docker.image.dockerfile.dir>${basedir}/../docker</docker.image.dockerfile.dir>
+    </properties>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -66,4 +71,18 @@
             </exclusions>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
