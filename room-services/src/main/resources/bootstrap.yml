@@ -3,4 +3,5 @@ spring:
     name: room-service
   cloud:
     config:
-      uri: http://localhost:9000
+      uri: http://localhost:8888
+      
