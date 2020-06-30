@@ -10,8 +10,12 @@
     </parent>
 
     <artifactId>room-services</artifactId>
-    <name>Room Services</name>
-    <description>Sample Spring Boot Project</description>
+    <name>Room Service</name>
+    <description>Sample Spring Boot Microservice</description>
+
+    <properties>
+        <docker.image.exposed.port>8802</docker.image.exposed.port>
+    </properties>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -41,7 +45,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-zipkin</artifactId>
         </dependency>
-        
+
         <!-- Third parties -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -66,4 +70,18 @@
             </exclusions>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
