@@ -14,6 +14,7 @@ LABEL maintainer="zhoozhoo@yahoo.com"
 WORKDIR application
 ARG EXPOSED_PORT
 EXPOSE ${EXPOSED_PORT}
+ENV SPRING_PROFILES_ACTIVE docker
 COPY --from=builder application/dockerize ./
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
