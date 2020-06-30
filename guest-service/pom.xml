@@ -11,6 +11,10 @@
     <name>Guest Service</name>
     <description>Sample Spring Boot Microservice</description>
 
+    <properties>
+        <docker.image.exposed.port>8800</docker.image.exposed.port>
+    </properties>
+
     <dependencies>
         <!-- Spring Boot -->
         <dependency>

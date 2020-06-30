@@ -13,6 +13,10 @@
     <name>Discovery Server</name>
     <description>Sample Spring Cloud Discovery Server</description>
 
+    <properties>
+        <docker.image.exposed.port>8761</docker.image.exposed.port>
+    </properties>
+
     <dependencies>
         <!-- Spring Cloud -->
         <dependency>

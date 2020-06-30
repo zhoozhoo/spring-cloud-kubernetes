@@ -13,6 +13,10 @@
     <name>API Gateway</name>
     <description>Sample Spring Cloud Gateway</description>
 
+    <properties>
+        <docker.image.exposed.port>8080</docker.image.exposed.port>
+    </properties>
+
     <dependencies>
         <!-- Spring Boot -->
         <dependency>
