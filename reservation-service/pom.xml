@@ -15,7 +15,6 @@
 
     <properties>
         <docker.image.exposed.port>8801</docker.image.exposed.port>
-        <docker.image.dockerfile.dir>${basedir}/../docker</docker.image.dockerfile.dir>
     </properties>
 
     <dependencies>
@@ -46,7 +45,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-zipkin</artifactId>
         </dependency>
-        
+
         <!-- Third parties -->
         <dependency>
             <groupId>org.projectlombok</groupId>
