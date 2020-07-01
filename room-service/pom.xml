@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>room-services</artifactId>
+    <artifactId>room-service</artifactId>
     <name>Room Service</name>
     <description>Sample Spring Boot Microservice</description>
 

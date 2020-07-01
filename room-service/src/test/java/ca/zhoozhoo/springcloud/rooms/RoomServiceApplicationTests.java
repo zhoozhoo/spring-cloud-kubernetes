@@ -1,13 +1,12 @@
-package ca.zhoozhoo.lil.roomservices;
+package ca.zhoozhoo.springcloud.rooms;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class RoomServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-
 }

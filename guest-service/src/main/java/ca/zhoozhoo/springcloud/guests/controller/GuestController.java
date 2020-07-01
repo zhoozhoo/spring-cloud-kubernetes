@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/guests")
-public class GuestContrller {
+public class GuestController {
 
     @Autowired
     protected GuestRepository guestRepository;

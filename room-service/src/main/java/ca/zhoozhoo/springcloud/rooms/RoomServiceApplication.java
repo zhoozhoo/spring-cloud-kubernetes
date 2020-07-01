@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.roomservices;
+package ca.zhoozhoo.springcloud.rooms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,10 +15,10 @@ import io.r2dbc.spi.ConnectionFactory;
 @SpringBootApplication
 @EnableWebFlux
 @EnableDiscoveryClient
-public class RoomServicesApplication {
+public class RoomServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RoomServicesApplication.class, args);
+		SpringApplication.run(RoomServiceApplication.class, args);
 	}
 
 	@Bean

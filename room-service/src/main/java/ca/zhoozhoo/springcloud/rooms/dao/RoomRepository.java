@@ -1,7 +1,9 @@
-package ca.zhoozhoo.lil.roomservices;
+package ca.zhoozhoo.springcloud.rooms.dao;
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
+
+import ca.zhoozhoo.springcloud.rooms.model.Room;
 
 @Repository
 public interface RoomRepository extends ReactiveCrudRepository<Room, Long> {
