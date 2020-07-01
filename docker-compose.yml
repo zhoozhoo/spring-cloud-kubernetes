@@ -20,7 +20,7 @@ services:
     entrypoint: ["./dockerize","-wait=tcp://config-server:8888","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 8761:8761
-  customers-service:
+  guest-service:
     image: zhoozhoo/guest-service:0.0.1-SNAPSHOT
     container_name: guest-service
     depends_on:
@@ -29,6 +29,36 @@ services:
     entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
     - 8800:8800
+  reservation-service:
+    image: zhoozhoo/reservation-service:0.0.1-SNAPSHOT
+    container_name: reservation-service
+    depends_on:
+     - config-server
+     - discovery-server
+    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    ports:
+    - 8801:8801
+  room-service:
+    image: zhoozhoo/room-service:0.0.1-SNAPSHOT
+    container_name: room-service
+    depends_on:
+     - config-server
+     - discovery-server
+    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    ports:
+    - 8802:8802
+  room-reservation-service:
+    image: zhoozhoo/room-reservation-service:0.0.1-SNAPSHOT
+    container_name: room-reservation-service
+    depends_on:
+     - config-server
+     - discovery-server
+     - guest-service
+     - reservation-service
+     - room-service
+    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    ports:
+    - 8803:8803
   api-gateway:
     image: zhoozhoo/api-gateway:0.0.1-SNAPSHOT
     container_name: api-gateway
