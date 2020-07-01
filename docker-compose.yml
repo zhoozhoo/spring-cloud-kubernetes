@@ -1,12 +1,5 @@
 version: '3.8'
 services: 
-  # tracing-server:
-  #   image: openzipkin/zipkin
-  #   container_name: tracing-server
-  #   environment:
-  #   - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -Djava.security.egd=file:/dev/./urandom
-  #   ports:
-  #    - 9411:9411
   config-server:
     image: zhoozhoo/config-server:0.0.1-SNAPSHOT
     container_name: config-server
@@ -59,6 +52,22 @@ services:
     entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
     - 8803:8803
+  tracing-server:
+    image: openzipkin/zipkin
+    container_name: tracing-server
+    environment:
+    - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -Djava.security.egd=file:/dev/./urandom
+    ports:
+     - 9411:9411
+  admin-server:
+    image: zhoozhoo/admin-server:0.0.1-SNAPSHOT
+    container_name: admin-server
+    depends_on:
+     - config-server
+     - discovery-server
+    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    ports:
+     - 9090:9090
   api-gateway:
     image: zhoozhoo/api-gateway:0.0.1-SNAPSHOT
     container_name: api-gateway
