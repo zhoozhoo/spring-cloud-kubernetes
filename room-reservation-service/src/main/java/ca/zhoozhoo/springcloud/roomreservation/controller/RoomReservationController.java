@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.roomreservationservice;
+package ca.zhoozhoo.springcloud.roomreservation.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,9 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.zhoozhoo.springcloud.roomreservation.client.GuestClient;
+import ca.zhoozhoo.springcloud.roomreservation.client.ReservationClient;
+import ca.zhoozhoo.springcloud.roomreservation.client.RoomClient;
+import ca.zhoozhoo.springcloud.roomreservation.model.Guest;
+import ca.zhoozhoo.springcloud.roomreservation.model.Reservation;
+import ca.zhoozhoo.springcloud.roomreservation.model.Room;
+import ca.zhoozhoo.springcloud.roomreservation.model.RoomReservation;
+
 @RestController
 @RequestMapping("/room-reservations")
-public class RoomReservationWebService {
+public class RoomReservationController {
 
     @Autowired
     protected RoomClient roomClient;

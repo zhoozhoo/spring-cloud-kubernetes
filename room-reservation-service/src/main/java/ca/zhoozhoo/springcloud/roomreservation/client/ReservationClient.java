@@ -1,4 +1,4 @@
-package ca.zhoozhoo.lil.roomreservationservice;
+package ca.zhoozhoo.springcloud.roomreservation.client;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -8,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import ca.zhoozhoo.springcloud.roomreservation.model.Reservation;
 
 @FeignClient("reservation-service")
 public interface ReservationClient {

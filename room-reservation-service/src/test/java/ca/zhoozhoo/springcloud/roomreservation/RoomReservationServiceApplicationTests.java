@@ -1,13 +1,12 @@
-package ca.zhoozhoo.lil.roomreservationservice;
+package ca.zhoozhoo.springcloud.roomreservation;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class RoomReservationServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-
 }
