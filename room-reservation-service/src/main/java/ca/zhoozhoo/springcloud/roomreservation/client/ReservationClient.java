@@ -1,22 +1,28 @@
 package ca.zhoozhoo.springcloud.roomreservation.client;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import ca.zhoozhoo.springcloud.roomreservation.model.Reservation;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-@FeignClient("reservation-service")
-public interface ReservationClient {
+@Component
+public class ReservationClient {
 
-    @GetMapping("/reservations")
-    public List<Reservation> getReservations(@RequestParam(name = "date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date);
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
-    @GetMapping("/reservations/{id}")
-    public Reservation getReservation(@PathVariable("id") long id);
+    public Flux<Reservation> getReservations(LocalDate date) {
+        return webClientBuilder.build().get().uri("http://reservation-service/reservations", date).retrieve()
+                .bodyToFlux(Reservation.class);
+    }
+
+    public Mono<Reservation> getReservation(long id) {
+        return webClientBuilder.build().get().uri("http://reservation-service/reservation/{id}", id).retrieve()
+                .bodyToMono(Reservation.class);
+    }
 }

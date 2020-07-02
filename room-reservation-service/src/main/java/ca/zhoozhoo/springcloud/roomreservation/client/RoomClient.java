@@ -1,19 +1,25 @@
 package ca.zhoozhoo.springcloud.roomreservation.client;
 
-import java.util.List;
-
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import ca.zhoozhoo.springcloud.roomreservation.model.Room;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-@FeignClient("room-service")
-public interface RoomClient {
+@Component
+public class RoomClient {
 
-    @GetMapping("/rooms")
-    public List<Room> getAllRooms();
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
-    @GetMapping("/rooms/{id}")
-    public Room getRoom(@PathVariable("id") long id);
+    public Flux<Room> getAllRooms() {
+        return webClientBuilder.build().get().uri("http://room-service/rooms").retrieve().bodyToFlux(Room.class);
+    }
+
+    public Mono<Room> getRoom(long id) {
+        return webClientBuilder.build().get().uri("http://room-service/rooms/{id}", id).retrieve()
+                .bodyToMono(Room.class);
+    }
 }
