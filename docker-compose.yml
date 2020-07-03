@@ -1,12 +1,12 @@
 version: '3.8'
 services: 
   config-server:
-    image: zhoozhoo/config-server:0.0.1-SNAPSHOT
+    image: zhoozhoo/spring-cloud-config-server
     container_name: config-server
     ports:
      - 8888:8888
   discovery-server:
-    image: zhoozhoo/discovery-server:0.0.1-SNAPSHOT
+    image: zhoozhoo/spring-cloud-discovery-server
     container_name: discovery-server
     depends_on:
       - config-server
@@ -14,7 +14,7 @@ services:
     ports:
      - 8761:8761
   guest-service:
-    image: zhoozhoo/guest-service:0.0.1-SNAPSHOT
+    image: zhoozhoo/spring-cloud-guest-service
     container_name: guest-service
     depends_on:
      - config-server
@@ -23,7 +23,7 @@ services:
     ports:
     - 8800:8800
   reservation-service:
-    image: zhoozhoo/reservation-service:0.0.1-SNAPSHOT
+    image: zhoozhoo/spring-cloud-reservation-service
     container_name: reservation-service
     depends_on:
      - config-server
@@ -32,7 +32,7 @@ services:
     ports:
     - 8801:8801
   room-service:
-    image: zhoozhoo/room-service:0.0.1-SNAPSHOT
+    image: zhoozhoo/spring-cloud-room-service
     container_name: room-service
     depends_on:
      - config-server
@@ -41,7 +41,7 @@ services:
     ports:
     - 8802:8802
   room-reservation-service:
-    image: zhoozhoo/room-reservation-service:0.0.1-SNAPSHOT
+    image: zhoozhoo/spring-cloud-room-reservation-service
     container_name: room-reservation-service
     depends_on:
      - config-server
@@ -60,7 +60,7 @@ services:
     ports:
      - 9411:9411
   admin-server:
-    image: zhoozhoo/admin-server:0.0.1-SNAPSHOT
+    image: zhoozhoo/spring-cloud-admin-server
     container_name: admin-server
     depends_on:
      - config-server
@@ -69,7 +69,7 @@ services:
     ports:
      - 9090:9090
   api-gateway:
-    image: zhoozhoo/api-gateway:0.0.1-SNAPSHOT
+    image: zhoozhoo/spring-cloud-api-gateway
     container_name: api-gateway
     depends_on:
      - config-server

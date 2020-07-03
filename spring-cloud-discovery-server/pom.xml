@@ -4,30 +4,28 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>ca.zhoozhoo.lil</groupId>
+        <groupId>ca.zhoozhoo.spring.cloud</groupId>
         <artifactId>spring-cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>config-server</artifactId>
-    <name>Config Server</name>
-    <description>Sample Spring Cloud Config Server</description>
+    <artifactId>spring-cloud-discovery-server</artifactId>
+    <name>Discovery Server</name>
+    <description>Sample Spring Cloud Discovery Server</description>
 
     <properties>
-        <docker.image.exposed.port>8888</docker.image.exposed.port>
+        <docker.image.exposed.port>8761</docker.image.exposed.port>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
         <!-- Spring Cloud -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-config-client</artifactId>
+        </dependency>
+       <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
         <!-- Testing -->

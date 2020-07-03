@@ -4,17 +4,17 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>ca.zhoozhoo.lil</groupId>
+        <groupId>ca.zhoozhoo.spring.cloud</groupId>
         <artifactId>spring-cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>api-gateway</artifactId>
-    <name>API Gateway</name>
-    <description>Sample Spring Cloud Gateway</description>
+    <artifactId>spring-cloud-reservation-service</artifactId>
+    <name>Reservation Service</name>
+    <description>Sample Spring Boot Microservice</description>
 
     <properties>
-        <docker.image.exposed.port>8080</docker.image.exposed.port>
+        <docker.image.exposed.port>8801</docker.image.exposed.port>
     </properties>
 
     <dependencies>
@@ -23,15 +23,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+        </dependency>
+
         <!-- Spring Cloud -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
+            <artifactId>spring-cloud-config-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -40,6 +44,17 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+        </dependency>
+
+        <!-- Third parties -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Testing -->

@@ -10,20 +10,20 @@
         <version>2.3.1.RELEASE</version>
     </parent>
 
-    <groupId>ca.zhoozhoo.lil</groupId>
+    <groupId>ca.zhoozhoo.spring.cloud</groupId>
     <artifactId>spring-cloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>config-server</module>
-        <module>discovery-server</module>
-        <module>admin-server</module>
-        <module>guest-service</module>
-        <module>reservation-service</module>
-        <module>room-service</module>
-        <module>room-reservation-service</module>
-        <module>api-gateway</module>
+        <module>spring-cloud-admin-server</module>
+        <module>spring-cloud-api-gateway</module>
+        <module>spring-cloud-config-server</module>
+        <module>spring-cloud-discovery-server</module>
+        <module>spring-cloud-guest-service</module>
+        <module>spring-cloud-reservation-service</module>
+        <module>spring-cloud-room-reservation-service</module>
+        <module>spring-cloud-room-service</module>
     </modules>
 
     <properties>
@@ -101,7 +101,6 @@
                                 <contextDirectory>..</contextDirectory>
                                 <dockerfile>../docker/Dockerfile</dockerfile>
                                 <repository>${docker.image.prefix}/${project.artifactId}</repository>
-                                <tag>${project.version}</tag>
                                 <buildArgs>
                                     <DOCKERIZE_VERSION>${docker.image.dockerize.version}</DOCKERIZE_VERSION>
                                     <EXPOSED_PORT>${docker.image.exposed.port}</EXPOSED_PORT>

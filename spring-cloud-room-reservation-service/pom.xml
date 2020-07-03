@@ -4,17 +4,17 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>ca.zhoozhoo.lil</groupId>
+        <groupId>ca.zhoozhoo.spring.cloud</groupId>
         <artifactId>spring-cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>guest-service</artifactId>
-    <name>Guest Service</name>
+    <artifactId>spring-cloud-room-reservation-service</artifactId>
+    <name>Room Reservation Service</name>
     <description>Sample Spring Boot Microservice</description>
 
     <properties>
-        <docker.image.exposed.port>8800</docker.image.exposed.port>
+        <docker.image.exposed.port>8803</docker.image.exposed.port>
     </properties>
 
     <dependencies>
@@ -27,10 +27,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
-        </dependency>
 
         <!-- Spring Cloud -->
         <dependency>
@@ -39,7 +35,23 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>
+                        spring-cloud-starter-netflix-ribbon
+                    </artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -50,11 +62,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.r2dbc</groupId>
-            <artifactId>r2dbc-h2</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
         <!-- Testing -->
