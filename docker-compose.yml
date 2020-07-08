@@ -59,6 +59,19 @@ services:
     - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -Djava.security.egd=file:/dev/./urandom
     ports:
      - 9411:9411
+  auth-server:
+    image: jboss/keycloak
+    container_name: auth-server
+    environment:
+      - KEYCLOAK_USER=user
+      - KEYCLOAK_PASSWORD=password
+      - KEYCLOAK_IMPORT=/tmp/spring-cloud-gateway-realm.json
+    ports:
+      - 8180:8080
+    volumes: 
+      - type: bind
+        source: ./docker/keycloack
+        target: /tmp 
   admin-server:
     image: zhoozhoo/spring-cloud-admin-server
     container_name: admin-server
