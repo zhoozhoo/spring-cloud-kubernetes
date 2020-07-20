@@ -4,6 +4,8 @@ spring:
       discovery:
         locator:
           enabled: true
+      default-filters:
+      - TokenRelay
       routes:
         - id: guest-service
           uri: lb://guest-service
@@ -21,3 +23,15 @@ spring:
           uri: lb://room-reservation-service
           predicates:
             - Path=/room-reservations/**
+  security:
+      oauth2:
+        client:
+          provider:
+            keycloack:
+              issuer-uri: http://localhost:8180/auth/realms/spring-cloud-gateway-realm
+              user-name-attribute: preferred_username
+          registration:
+            gateway:
+              provider: keycloack
+              client-id: spring-cloud-gateway-client
+              client-secret: 4ac9fb73-4cdc-4c3d-b35a-faadbfdc07db

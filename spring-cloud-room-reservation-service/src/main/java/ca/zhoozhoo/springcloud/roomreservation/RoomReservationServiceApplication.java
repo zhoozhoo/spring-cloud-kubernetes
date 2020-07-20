@@ -8,9 +8,7 @@ import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder;
 import org.springframework.cloud.client.circuitbreaker.Customizer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.timelimiter.TimeLimiterConfig;
@@ -21,12 +19,6 @@ public class RoomReservationServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RoomReservationServiceApplication.class, args);
-	}
-
-	@Bean
-	@LoadBalanced
-	public WebClient.Builder loadBalancedWebClientBuilder() {
-		return WebClient.builder();
 	}
 
 	@Bean
