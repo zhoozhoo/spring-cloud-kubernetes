@@ -1,5 +1,25 @@
 version: '3.8'
 services: 
+  auth-server:
+    image: jboss/keycloak:latest
+    container_name: auth-server
+    environment:
+      - KEYCLOAK_USER=user
+      - KEYCLOAK_PASSWORD=password
+      - KEYCLOAK_IMPORT=/tmp/spring-cloud-gateway-realm.json
+    ports:
+      - 8180:8080
+    volumes: 
+      - type: bind
+        source: ./docker/keycloack/spring-cloud-gateway-realm.json
+        target: /tmp/spring-cloud-gateway-realm.json
+  tracing-server:
+    image: openzipkin/zipkin
+    container_name: tracing-server
+    environment:
+    - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -Djava.security.egd=file:/dev/./urandom
+    ports:
+     - 9411:9411
   config-server:
     image: zhoozhoo/spring-cloud-config-server
     container_name: config-server
@@ -52,26 +72,6 @@ services:
     entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
     - 8803:8803
-  tracing-server:
-    image: openzipkin/zipkin
-    container_name: tracing-server
-    environment:
-    - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -Djava.security.egd=file:/dev/./urandom
-    ports:
-     - 9411:9411
-  auth-server:
-    image: jboss/keycloak
-    container_name: auth-server
-    environment:
-      - KEYCLOAK_USER=user
-      - KEYCLOAK_PASSWORD=password
-      - KEYCLOAK_IMPORT=/tmp/spring-cloud-gateway-realm.json
-    ports:
-      - 8180:8080
-    volumes: 
-      - type: bind
-        source: ./docker/keycloack
-        target: /tmp 
   admin-server:
     image: zhoozhoo/spring-cloud-admin-server
     container_name: admin-server
@@ -87,6 +87,7 @@ services:
     depends_on:
      - config-server
      - discovery-server
+     - auth-server
     entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 8080:8080
