@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -10,30 +8,21 @@
         <version>2.3.2.RELEASE</version>
     </parent>
 
-    <groupId>ca.zhoozhoo.spring.cloud</groupId>
+    <groupId>ca.zhoozhoo.spring.cloud.kubernetes</groupId>
     <artifactId>spring-cloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-cloud-admin-server</module>
-        <module>spring-cloud-api-gateway</module>
-        <module>spring-cloud-config-server</module>
-        <module>spring-cloud-discovery-server</module>
-        <module>spring-cloud-guest-service</module>
-        <module>spring-cloud-reservation-service</module>
-        <module>spring-cloud-room-reservation-service</module>
-        <module>spring-cloud-room-service</module>
+        <module>spring-cloud-kubernetes-guest-service</module>
     </modules>
 
     <properties>
         <java.version>14</java.version>
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
-        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
         <docker.image.prefix>zhoozhoo</docker.image.prefix>
-        <docker.image.dockerfile.dir>${basedir}</docker.image.dockerfile.dir>
-        <docker.image.dockerize.version>v0.6.1</docker.image.dockerize.version>
+        <kubernetes-maven-plugin.version>1.0.0-rc-1</kubernetes-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -80,32 +69,55 @@
 
     <profiles>
         <profile>
-            <id>docker</id>
+            <id>kubernetes</id>
             <build>
                 <pluginManagement>
                     <plugins>
                         <plugin>
-                            <groupId>com.spotify</groupId>
-                            <artifactId>dockerfile-maven-plugin</artifactId>
-                            <version>${dockerfile-maven-plugin.version}</version>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-maven-plugin</artifactId>
                             <executions>
                                 <execution>
-                                    <id>default</id>
                                     <goals>
+                                        <goal>repackage</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.eclipse.jkube</groupId>
+                            <artifactId>kubernetes-maven-plugin</artifactId>
+                            <version>${kubernetes-maven-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>resource</goal>
                                         <goal>build</goal>
-                                        <goal>push</goal>
+                                        <goal>helm</goal>
                                     </goals>
                                 </execution>
                             </executions>
                             <configuration>
-                                <contextDirectory>..</contextDirectory>
-                                <dockerfile>../docker/Dockerfile</dockerfile>
-                                <repository>${docker.image.prefix}/${project.artifactId}</repository>
-                                <buildArgs>
-                                    <DOCKERIZE_VERSION>${docker.image.dockerize.version}</DOCKERIZE_VERSION>
-                                    <EXPOSED_PORT>${docker.image.exposed.port}</EXPOSED_PORT>
-                                    <JAR_FILE>${project.artifactId}/target/${project.build.finalName}.${project.packaging}</JAR_FILE>
-                                </buildArgs>
+                                <images>
+                                    <image>
+                                        <name>${docker.image.prefix}/${project.artifactId}:${project.version}</name>
+                                        <alias>${project.artifactId}</alias>
+                                        <build>
+                                            <from>adoptopenjdk:14-jre-hotspot</from>
+                                            <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
+                                        </build>
+                                    </image>
+                                </images>
+                                <enricher>
+                                    <excludes>
+                                        <exclude>jkube-expose</exclude>
+                                    </excludes>
+                                    <config>
+                                        <jkube-service>
+                                            <type>NodePort</type>
+                                        </jkube-service>
+                                    </config>
+                                </enricher>
                             </configuration>
                         </plugin>
                     </plugins>
