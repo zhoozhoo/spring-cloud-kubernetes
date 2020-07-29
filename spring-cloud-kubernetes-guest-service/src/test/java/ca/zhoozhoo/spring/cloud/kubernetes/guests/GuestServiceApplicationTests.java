@@ -1,4 +1,4 @@
-package ca.zhoozhoo.springcloud.guests;
+package ca.zhoozhoo.spring.cloud.kubernetes.guests;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package ca.zhoozhoo.springcloud.guests;
+package ca.zhoozhoo.spring.cloud.kubernetes.guests;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
