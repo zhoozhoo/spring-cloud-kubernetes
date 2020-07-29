@@ -16,14 +16,14 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-cloud-admin-server</module>
-        <module>spring-cloud-api-gateway</module>
         <module>spring-cloud-config-server</module>
         <module>spring-cloud-discovery-server</module>
+        <module>spring-cloud-room-service</module>
         <module>spring-cloud-guest-service</module>
         <module>spring-cloud-reservation-service</module>
         <module>spring-cloud-room-reservation-service</module>
-        <module>spring-cloud-room-service</module>
+        <module>spring-cloud-api-gateway</module>
+        <module>spring-cloud-admin-server</module>
     </modules>
 
     <properties>

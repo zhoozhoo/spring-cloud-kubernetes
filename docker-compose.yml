@@ -1,19 +1,5 @@
 version: "3.8"
 services:
-  auth-server:
-    image: jboss/keycloak
-    container_name: auth-server
-    environment:
-      - KEYCLOAK_USER=user
-      - KEYCLOAK_PASSWORD=password
-      - KEYCLOAK_IMPORT=/tmp/spring-cloud-gateway-realm.json
-    ports:
-      - 8180:8080
-    volumes:
-      - type: bind
-        source: ./docker/keycloack/spring-cloud-gateway-realm.json
-        target: /tmp/spring-cloud-gateway-realm.json
-
   tracing-server:
     image: openzipkin/zipkin
     container_name: tracing-server
@@ -21,12 +7,37 @@ services:
       - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -Djava.security.egd=file:/dev/./urandom
     ports:
       - 9411:9411
+    networks:
+      - spring-cloud-network
+
+  auth-server:
+    build:
+      context: ./docker/keycloak
+    image: zhoozhoo/spring-cloud-auth-server
+    container_name: auth-server
+    ports:
+      - 8180:8180
+    networks:
+      - spring-cloud-network
 
   config-server:
     image: zhoozhoo/spring-cloud-config-server
     container_name: config-server
+    depends_on:
+      - auth-server
+    entrypoint:
+      [
+        "./dockerize",
+        "-wait=tcp://auth-server:8180",
+        "-timeout=120s",
+        "--",
+        "java",
+        "org.springframework.boot.loader.JarLauncher",
+      ]
     ports:
       - 8888:8888
+    networks:
+      - spring-cloud-network
 
   discovery-server:
     image: zhoozhoo/spring-cloud-discovery-server
@@ -37,13 +48,15 @@ services:
       [
         "./dockerize",
         "-wait=tcp://config-server:8888",
-        "-timeout=60s",
+        "-timeout=120s",
         "--",
         "java",
         "org.springframework.boot.loader.JarLauncher",
       ]
     ports:
       - 8761:8761
+    networks:
+      - spring-cloud-network
 
   guest-service:
     image: zhoozhoo/spring-cloud-guest-service
@@ -55,13 +68,15 @@ services:
       [
         "./dockerize",
         "-wait=tcp://discovery-server:8761",
-        "-timeout=60s",
+        "-timeout=120s",
         "--",
         "java",
         "org.springframework.boot.loader.JarLauncher",
       ]
     ports:
       - 8800:8800
+    networks:
+      - spring-cloud-network
 
   reservation-service:
     image: zhoozhoo/spring-cloud-reservation-service
@@ -73,13 +88,15 @@ services:
       [
         "./dockerize",
         "-wait=tcp://discovery-server:8761",
-        "-timeout=60s",
+        "-timeout=120s",
         "--",
         "java",
         "org.springframework.boot.loader.JarLauncher",
       ]
     ports:
       - 8801:8801
+    networks:
+      - spring-cloud-network
 
   room-service:
     image: zhoozhoo/spring-cloud-room-service
@@ -91,13 +108,15 @@ services:
       [
         "./dockerize",
         "-wait=tcp://discovery-server:8761",
-        "-timeout=60s",
+        "-timeout=120s",
         "--",
         "java",
         "org.springframework.boot.loader.JarLauncher",
       ]
     ports:
       - 8802:8802
+    networks:
+      - spring-cloud-network
 
   room-reservation-service:
     image: zhoozhoo/spring-cloud-room-reservation-service
@@ -112,31 +131,15 @@ services:
       [
         "./dockerize",
         "-wait=tcp://discovery-server:8761",
-        "-timeout=60s",
+        "-timeout=120s",
         "--",
         "java",
         "org.springframework.boot.loader.JarLauncher",
       ]
     ports:
       - 8803:8803
-
-  admin-server:
-    image: zhoozhoo/spring-cloud-admin-server
-    container_name: admin-server
-    depends_on:
-      - config-server
-      - discovery-server
-    entrypoint:
-      [
-        "./dockerize",
-        "-wait=tcp://discovery-server:8761",
-        "-timeout=60s",
-        "--",
-        "java",
-        "org.springframework.boot.loader.JarLauncher",
-      ]
-    ports:
-      - 9090:9090
+    networks:
+      - spring-cloud-network
 
   api-gateway:
     image: zhoozhoo/spring-cloud-api-gateway
@@ -149,10 +152,36 @@ services:
       [
         "./dockerize",
         "-wait=tcp://discovery-server:8761",
-        "-timeout=60s",
+        "-timeout=120s",
         "--",
         "java",
         "org.springframework.boot.loader.JarLauncher",
       ]
     ports:
       - 8080:8080
+    networks:
+      - spring-cloud-network
+
+  admin-server:
+    image: zhoozhoo/spring-cloud-admin-server
+    container_name: admin-server
+    depends_on:
+      - config-server
+      - discovery-server
+    entrypoint:
+      [
+        "./dockerize",
+        "-wait=tcp://discovery-server:8761",
+        "-timeout=120s",
+        "--",
+        "java",
+        "org.springframework.boot.loader.JarLauncher",
+      ]
+    ports:
+      - 9090:9090
+    networks:
+      - spring-cloud-network
+
+networks:
+    spring-cloud-network:
+        driver: bridge

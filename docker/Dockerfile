@@ -1,8 +1,8 @@
 FROM openjdk:11-jre as builder
-WORKDIR application
+WORKDIR /app
 ARG JAR_FILE
-ADD ${JAR_FILE} application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
+ADD ${JAR_FILE} ./app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
 
 ARG DOCKERIZE_VERSION
 RUN wget https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
@@ -11,13 +11,13 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERS
 
 FROM adoptopenjdk:14-jre-hotspot
 LABEL maintainer="zhoozhoo@yahoo.com"
-WORKDIR application
+WORKDIR /app
 ARG EXPOSED_PORT
 EXPOSE ${EXPOSED_PORT}
 ENV SPRING_PROFILES_ACTIVE docker
-COPY --from=builder application/dockerize ./
-COPY --from=builder application/dependencies/ ./
-COPY --from=builder application/spring-boot-loader/ ./
-COPY --from=builder application/snapshot-dependencies/ ./
-COPY --from=builder application/application/ ./
+COPY --from=builder /app/dockerize ./
+COPY --from=builder /app/dependencies/ ./
+COPY --from=builder /app/spring-boot-loader/ ./
+COPY --from=builder /app/snapshot-dependencies/ ./
+COPY --from=builder /app/application/ ./
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
