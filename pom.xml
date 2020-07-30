@@ -21,6 +21,7 @@
         <module>spring-cloud-kubernetes-room-service</module>
         <module>spring-cloud-kubernetes-guest-service</module>
         <module>spring-cloud-kubernetes-reservation-service</module>
+        <module>spring-cloud-kubernetes-room-reservation-service</module>
         <module>spring-cloud-kubernetes-api-gateway</module>
         <module>spring-cloud-kubernetes-admin-server</module>
     </modules>
