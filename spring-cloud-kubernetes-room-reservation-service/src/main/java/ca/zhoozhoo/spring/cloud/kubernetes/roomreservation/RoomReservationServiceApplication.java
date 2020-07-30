@@ -1,4 +1,4 @@
-package ca.zhoozhoo.springcloud.roomreservation;
+package ca.zhoozhoo.spring.cloud.kubernetes.roomreservation;
 
 import java.time.Duration;
 

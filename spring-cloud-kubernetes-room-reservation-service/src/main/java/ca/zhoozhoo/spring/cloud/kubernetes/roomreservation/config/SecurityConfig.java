@@ -1,4 +1,4 @@
-package ca.zhoozhoo.springcloud.roomreservation.config;
+package ca.zhoozhoo.spring.cloud.kubernetes.roomreservation.config;
 
 import java.util.Collections;
 import java.util.List;

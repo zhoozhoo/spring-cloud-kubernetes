@@ -1,4 +1,4 @@
-package ca.zhoozhoo.springcloud.roomreservation.model;
+package ca.zhoozhoo.spring.cloud.kubernetes.roomreservation.model;
 
 import lombok.Data;
 

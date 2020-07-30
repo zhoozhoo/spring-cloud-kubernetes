@@ -1,4 +1,4 @@
-package ca.zhoozhoo.springcloud.roomreservation.controller;
+package ca.zhoozhoo.spring.cloud.kubernetes.roomreservation.controller;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import ca.zhoozhoo.springcloud.roomreservation.model.Guest;
-import ca.zhoozhoo.springcloud.roomreservation.model.Reservation;
-import ca.zhoozhoo.springcloud.roomreservation.model.Room;
-import ca.zhoozhoo.springcloud.roomreservation.model.RoomReservation;
+import ca.zhoozhoo.spring.cloud.kubernetes.roomreservation.model.Guest;
+import ca.zhoozhoo.spring.cloud.kubernetes.roomreservation.model.Reservation;
+import ca.zhoozhoo.spring.cloud.kubernetes.roomreservation.model.Room;
+import ca.zhoozhoo.spring.cloud.kubernetes.roomreservation.model.RoomReservation;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
