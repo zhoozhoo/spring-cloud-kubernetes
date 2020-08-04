@@ -16,8 +16,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-cloud-kubernetes-config-server</module>
-        <module>spring-cloud-kubernetes-discovery-server</module>
         <module>spring-cloud-kubernetes-room-service</module>
         <module>spring-cloud-kubernetes-guest-service</module>
         <module>spring-cloud-kubernetes-reservation-service</module>
