@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: admin-server
+  name: admin-server
+spec:
+  ports:
+  - name: http
+    port: &target 9090
+    protocol: TCP
+    targetPort: *target
+  selector:
+    app: admin-server
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-server
+  labels:
+    app: admin-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-server
+  template:
+    metadata:
+      labels:
+        app: admin-server
+    spec:
+      containers:
+      - name: admin-server
+        image: zhoozhoo/spring-cloud-kubernetes-admin-server:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 180
+          successThreshold: 1
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 10
+          successThreshold: 1
+        ports:
+        - name: http
+          containerPort: 9090
