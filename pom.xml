@@ -31,6 +31,7 @@
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <docker.image.prefix>zhoozhoo</docker.image.prefix>
+        <docker.image.dockerize.version>v0.6.1</docker.image.dockerize.version>
         <kubernetes-maven-plugin.version>1.0.0-rc-1</kubernetes-maven-plugin.version>
     </properties>
 
@@ -100,33 +101,24 @@
                             <executions>
                                 <execution>
                                     <goals>
-                                        <goal>resource</goal>
                                         <goal>build</goal>
-                                        <goal>helm</goal>
                                     </goals>
                                 </execution>
                             </executions>
                             <configuration>
                                 <images>
                                     <image>
-                                        <name>${docker.image.prefix}/${project.artifactId}:${project.version}</name>
+                                        <name>${docker.image.prefix}/${project.artifactId}</name>
                                         <alias>${project.artifactId}</alias>
                                         <build>
-                                            <from>adoptopenjdk:14-jre-hotspot</from>
-                                            <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
+                                            <contextDir>${project.basedir}/../docker</contextDir>
+                                            <args>
+                                                <DOCKERIZE_VERSION>${docker.image.dockerize.version}</DOCKERIZE_VERSION>
+                                                <EXPOSED_PORT>${docker.image.exposed.port}</EXPOSED_PORT>
+                                            </args>
                                         </build>
                                     </image>
                                 </images>
-                                <enricher>
-                                    <excludes>
-                                        <exclude>jkube-expose</exclude>
-                                    </excludes>
-                                    <config>
-                                        <jkube-service>
-                                            <type>NodePort</type>
-                                        </jkube-service>
-                                    </config>
-                                </enricher>
                             </configuration>
                         </plugin>
                     </plugins>
