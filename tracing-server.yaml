@@ -4,31 +4,36 @@ metadata:
   name: tracing-server
   labels:
     app: tracing-server
+    group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   ports:
   - name: http
-    port: 9411
-    targetPort: 9411
+    port: &target 9411
+    protocol: TCP
+    targetPort: *target
   selector:
     app: tracing-server
+    group: ca.zhoozhoo.spring.cloud.kubernetes
   type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tracing-server
-  namespace: default
   labels:
     app: tracing-server
+    group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tracing-server
+      group: ca.zhoozhoo.spring.cloud.kubernetes
   template:
     metadata:
       labels:
         app: tracing-server
+        group: ca.zhoozhoo.spring.cloud.kubernetes
     spec:
       containers:
       - name: tracing-server

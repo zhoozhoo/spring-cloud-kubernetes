@@ -4,31 +4,36 @@ metadata:
   name: auth-server
   labels:
     app: auth-server
+    group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   ports:
   - name: http
-    port: 8180
-    targetPort: 8180
+    port: &target 8180
+    protocol: TCP
+    targetPort: *target
   selector:
     app: auth-server
+    group: ca.zhoozhoo.spring.cloud.kubernetes
   type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: auth-server
-  namespace: default
   labels:
     app: auth-server
+    group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: auth-server
+      group: ca.zhoozhoo.spring.cloud.kubernetes
   template:
     metadata:
       labels:
         app: auth-server
+        group: ca.zhoozhoo.spring.cloud.kubernetes
     spec:
       containers:
       - name: auth-server
@@ -36,11 +41,11 @@ spec:
         image: zhoozhoo/spring-cloud-auth-server
         ports:
         - name: http
-          containerPort: 8180
+          containerPort: &target 8180
         - name: https
           containerPort: 8443
         readinessProbe:
           httpGet:
             path: /auth/realms/master
-            port: 8180
+            port: *target
         
