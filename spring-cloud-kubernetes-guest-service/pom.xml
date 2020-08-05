@@ -9,13 +9,13 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <properties>
-        <docker.image.exposed.port>8800</docker.image.exposed.port>
-    </properties>
-
     <artifactId>spring-cloud-kubernetes-guest-service</artifactId>
     <name>Guest Service</name>
     <description>Sample Spring Boot Microservice</description>
+
+    <properties>
+        <docker.image.exposed.port>8800</docker.image.exposed.port>
+    </properties>
 
     <dependencies>
         <!-- Spring Boot -->
