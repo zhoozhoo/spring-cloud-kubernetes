@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: guest-service
   labels:
     app: guest-service
-  name: guest-service
+    group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   ports:
   - name: http
@@ -12,6 +13,7 @@ spec:
     targetPort: *target
   selector:
     app: guest-service
+    group: ca.zhoozhoo.spring.cloud.kubernetes
   type: LoadBalancer
 ---
 apiVersion: apps/v1
@@ -20,15 +22,18 @@ metadata:
   name: guest-service
   labels:
     app: guest-service
+    group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: guest-service
+      group: ca.zhoozhoo.spring.cloud.kubernetes
   template:
     metadata:
       labels:
         app: guest-service
+        group: ca.zhoozhoo.spring.cloud.kubernetes
     spec:
       containers:
       - name: guest-service
@@ -38,7 +43,7 @@ spec:
           failureThreshold: 3
           httpGet:
             path: /actuator/health
-            port: 8800
+            port: &target 8800
             scheme: HTTP
           initialDelaySeconds: 180
           successThreshold: 1
@@ -46,10 +51,10 @@ spec:
           failureThreshold: 3
           httpGet:
             path: /actuator/health
-            port: 8800
+            port: 880*target0
             scheme: HTTP
           initialDelaySeconds: 10
           successThreshold: 1
         ports:
         - name: http
-          containerPort: 8800
+          containerPort: *target

@@ -7,10 +7,11 @@ data:
     server:
       port: 9090
     spring:
-     cloud:
-      kubernetes:
-        discovery:
-          all-namespaces: true
+      cloud:
+        kubernetes:
+          discovery:
+            service-labels:
+              group: ca.zhoozhoo.spring.cloud.kubernetes
     management:
       endpoint:
         restart:

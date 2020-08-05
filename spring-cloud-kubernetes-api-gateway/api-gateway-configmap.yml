@@ -1,0 +1,59 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: api-gateway
+data:
+  application.yml: |-
+    server:
+      port: 8080
+    spring:
+      cloud:
+        gateway:
+          discovery:
+            locator:
+              enabled: true
+          default-filters:
+          - TokenRelay
+          routes:
+            - id: guest-service
+              uri: lb://guest-service
+              predicates:
+                - Path=/guests/**
+            - id: reservation-service
+              uri: lb://reservation-service
+              predicates:
+                - Path=/reservations/**
+            - id: room-service
+              uri: lb://room-service
+              predicates:
+                - Path=/rooms/**
+            - id: room-reservation-service
+              uri: lb://room-reservation-service
+              predicates:
+                - Path=/room-reservations/**
+        kubernetes:
+          discovery:
+            service-labels:
+              group: ca.zhoozhoo.spring.cloud.kubernetes
+      zipkin:
+        baseUrl: http://tracing-server:9411
+      security:
+        oauth2:
+          client:
+            provider:
+              keycloack:
+                issuer-uri: http://auth-server:8180/auth/realms/spring-cloud-gateway-realm
+                user-name-attribute: preferred_username
+            registration:
+              gateway:
+                provider: keycloack
+                client-id: spring-cloud-gateway-client
+                client-secret: 4ac9fb73-4cdc-4c3d-b35a-faadbfdc07db
+    management:
+      endpoint:
+        restart:
+          enabled: true
+        health:
+          enabled: true
+        info:
+          enabled: true

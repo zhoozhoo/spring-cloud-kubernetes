@@ -2,48 +2,48 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: admin-server
+    app: api-gateway
     group: ca.zhoozhoo.spring.cloud.kubernetes
-  name: admin-server
+  name: api-gateway
 spec:
   ports:
   - name: http
-    port: &target 9090
+    port: &target 8080
     protocol: TCP
     targetPort: *target
   selector:
-    app: admin-server
+    app: api-gateway
     group: ca.zhoozhoo.spring.cloud.kubernetes
   type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-server
+  name: api-gateway
   labels:
-    app: admin-server
+    app: api-gateway
     group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: admin-server
+      app: api-gateway
       group: ca.zhoozhoo.spring.cloud.kubernetes
   template:
     metadata:
       labels:
-        app: admin-server
+        app: api-gateway
         group: ca.zhoozhoo.spring.cloud.kubernetes
     spec:
       containers:
-      - name: admin-server
-        image: zhoozhoo/spring-cloud-kubernetes-admin-server:latest
+      - name: api-gateway
+        image: zhoozhoo/spring-cloud-kubernetes-api-gateway:latest
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
           httpGet:
             path: /actuator/health
-            port: &target 9090
+            port: &target 8080
             scheme: HTTP
           initialDelaySeconds: 180
           successThreshold: 1

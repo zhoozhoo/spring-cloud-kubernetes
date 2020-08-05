@@ -10,7 +10,8 @@ data:
       cloud:
         kubernetes:
           discovery:
-            all-namespaces: true
+            service-labels:
+              group: ca.zhoozhoo.spring.cloud.kubernetes
       zipkin:
         baseUrl: http://tracing-server:9411
       security:
