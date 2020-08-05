@@ -20,54 +20,15 @@ services:
     networks:
       - spring-cloud-network
 
-  config-server:
-    image: zhoozhoo/spring-cloud-config-server
-    container_name: config-server
+  guest-service:
+    image: zhoozhoo/spring-cloud-guest-service
+    container_name: guest-service
     depends_on:
       - auth-server
     entrypoint:
       [
         "./dockerize",
         "-wait=tcp://auth-server:8180",
-        "-timeout=120s",
-        "--",
-        "java",
-        "org.springframework.boot.loader.JarLauncher",
-      ]
-    ports:
-      - 8888:8888
-    networks:
-      - spring-cloud-network
-
-  discovery-server:
-    image: zhoozhoo/spring-cloud-discovery-server
-    container_name: discovery-server
-    depends_on:
-      - config-server
-    entrypoint:
-      [
-        "./dockerize",
-        "-wait=tcp://config-server:8888",
-        "-timeout=120s",
-        "--",
-        "java",
-        "org.springframework.boot.loader.JarLauncher",
-      ]
-    ports:
-      - 8761:8761
-    networks:
-      - spring-cloud-network
-
-  guest-service:
-    image: zhoozhoo/spring-cloud-guest-service
-    container_name: guest-service
-    depends_on:
-      - config-server
-      - discovery-server
-    entrypoint:
-      [
-        "./dockerize",
-        "-wait=tcp://discovery-server:8761",
         "-timeout=120s",
         "--",
         "java",
@@ -82,12 +43,11 @@ services:
     image: zhoozhoo/spring-cloud-reservation-service
     container_name: reservation-service
     depends_on:
-      - config-server
-      - discovery-server
+      - auth-server
     entrypoint:
       [
         "./dockerize",
-        "-wait=tcp://discovery-server:8761",
+        "-wait=tcp://auth-server:8180",
         "-timeout=120s",
         "--",
         "java",
@@ -102,12 +62,11 @@ services:
     image: zhoozhoo/spring-cloud-room-service
     container_name: room-service
     depends_on:
-      - config-server
-      - discovery-server
+      - auth-server
     entrypoint:
       [
         "./dockerize",
-        "-wait=tcp://discovery-server:8761",
+        "-wait=tcp://auth-server:8180",
         "-timeout=120s",
         "--",
         "java",
@@ -122,15 +81,14 @@ services:
     image: zhoozhoo/spring-cloud-room-reservation-service
     container_name: room-reservation-service
     depends_on:
-      - config-server
-      - discovery-server
+      - auth-server
+      - room-service
       - guest-service
       - reservation-service
-      - room-service
     entrypoint:
       [
         "./dockerize",
-        "-wait=tcp://discovery-server:8761",
+        "-wait=tcp://auth-server:8180",
         "-timeout=120s",
         "--",
         "java",
@@ -145,13 +103,11 @@ services:
     image: zhoozhoo/spring-cloud-api-gateway
     container_name: api-gateway
     depends_on:
-      - config-server
-      - discovery-server
       - auth-server
     entrypoint:
       [
         "./dockerize",
-        "-wait=tcp://discovery-server:8761",
+        "-wait=tcp://auth-server:8180",
         "-timeout=120s",
         "--",
         "java",
@@ -165,18 +121,6 @@ services:
   admin-server:
     image: zhoozhoo/spring-cloud-admin-server
     container_name: admin-server
-    depends_on:
-      - config-server
-      - discovery-server
-    entrypoint:
-      [
-        "./dockerize",
-        "-wait=tcp://discovery-server:8761",
-        "-timeout=120s",
-        "--",
-        "java",
-        "org.springframework.boot.loader.JarLauncher",
-      ]
     ports:
       - 9090:9090
     networks:
