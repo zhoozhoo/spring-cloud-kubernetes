@@ -1,15 +1,17 @@
 spring:
   application:
     name: room-reservation-service
-  cloud:
-    config:
-      uri: http://localhost:8888
-    loadbalancer:
-      ribbon:
-        enabled: false
 ---
 spring:
-  profiles: docker
+  profiles: kubernetes
   cloud:
-    config:
-      uri: http://config-server:8888
+    kubernetes:
+      config:
+        sources:
+          - name: other
+          - name: ${spring.application.name}
+      reload:
+        enabled: true
+        strategy: refresh
+        mode: polling
+        period: 5000
