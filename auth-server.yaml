@@ -8,9 +8,9 @@ metadata:
 spec:
   ports:
   - name: http
-    port: &target 8180
+    port: 8180
     protocol: TCP
-    targetPort: *target
+    targetPort: 8080
   selector:
     app: auth-server
     group: ca.zhoozhoo.spring.cloud.kubernetes
@@ -41,9 +41,7 @@ spec:
         image: zhoozhoo/spring-cloud-auth-server
         ports:
         - name: http
-          containerPort: &target 8180
-        - name: https
-          containerPort: 8443
+          containerPort: &target 8080
         readinessProbe:
           httpGet:
             path: /auth/realms/master

@@ -16,7 +16,7 @@ services:
     image: zhoozhoo/spring-cloud-auth-server
     container_name: auth-server
     ports:
-      - 8180:8180
+      - 8180:8080
     networks:
       - spring-cloud-network
 
