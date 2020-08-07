@@ -35,6 +35,9 @@ data:
           discovery:
             service-labels:
               group: ca.zhoozhoo.spring.cloud.kubernetes
+      sleuth:
+        sampler:
+          percentage: 1.0
       zipkin:
         baseUrl: http://tracing-server:9411
       security:
