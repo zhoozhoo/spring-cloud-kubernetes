@@ -1,0 +1,29 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: room-reservation-service
+data:
+  application.yml: |-
+    server:
+      port: 8080
+    spring:
+      cloud:
+        kubernetes:
+          discovery:
+            service-labels:
+              group: ca.zhoozhoo.spring.cloud.kubernetes
+      zipkin:
+        baseUrl: http://tracing-server:9411
+      security:
+        oauth2:
+          resourceserver:
+            jwt:
+              issuer-uri: http://auth-server:8180/auth/realms/spring-cloud-gateway-realm
+    management:
+      endpoint:
+        restart:
+          enabled: true
+        health:
+          enabled: true
+        info:
+          enabled: true
