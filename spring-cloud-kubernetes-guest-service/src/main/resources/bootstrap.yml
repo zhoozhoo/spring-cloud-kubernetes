@@ -1,9 +1,6 @@
 spring:
   application:
     name: guest-service
----
-spring:
-  profiles: kubernetes
   cloud:
     kubernetes:
       config:

@@ -1,9 +1,6 @@
 spring:
   application:
     name: room-reservation-service
----
-spring:
-  profiles: kubernetes
   cloud:
     kubernetes:
       config:
