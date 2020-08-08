@@ -4,7 +4,6 @@ metadata:
   name: auth-server
   labels:
     app: auth-server
-    group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   ports:
   - name: http
@@ -13,7 +12,6 @@ spec:
     targetPort: 8080
   selector:
     app: auth-server
-    group: ca.zhoozhoo.spring.cloud.kubernetes
   type: LoadBalancer
 ---
 apiVersion: apps/v1
@@ -22,18 +20,15 @@ metadata:
   name: auth-server
   labels:
     app: auth-server
-    group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: auth-server
-      group: ca.zhoozhoo.spring.cloud.kubernetes
   template:
     metadata:
       labels:
         app: auth-server
-        group: ca.zhoozhoo.spring.cloud.kubernetes
     spec:
       containers:
       - name: auth-server

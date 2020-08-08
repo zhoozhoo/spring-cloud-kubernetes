@@ -39,13 +39,13 @@ data:
         sampler:
           percentage: 1.0
       zipkin:
-        baseUrl: http://tracing-server:9411
+        baseUrl: http://host.docker.internal:9411
       security:
         oauth2:
           client:
             provider:
               keycloack:
-                issuer-uri: http://auth-server:8180/auth/realms/spring-cloud-gateway-realm
+                issuer-uri: http://host.docker.internal:8180/auth/realms/spring-cloud-gateway-realm
                 user-name-attribute: preferred_username
             registration:
               gateway:
