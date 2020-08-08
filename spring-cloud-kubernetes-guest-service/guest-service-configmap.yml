@@ -5,7 +5,7 @@ metadata:
 data:
   application.yml: |-
     server:
-      port: 8800
+      port: 8080
     spring:
       cloud:
         kubernetes:

@@ -8,9 +8,9 @@ metadata:
 spec:
   ports:
   - name: http
-    port: &target 9090
+    port: 9090
     protocol: TCP
-    targetPort: *target
+    targetPort: 8080
   selector:
     app: admin-server
     group: ca.zhoozhoo.spring.cloud.kubernetes
@@ -43,7 +43,7 @@ spec:
           failureThreshold: 3
           httpGet:
             path: /actuator/health
-            port: &target 9090
+            port: &target 8080
             scheme: HTTP
           initialDelaySeconds: 180
           successThreshold: 1
