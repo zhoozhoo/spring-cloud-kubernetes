@@ -8,7 +8,7 @@ services:
     ports:
       - 9411:9411
     networks:
-      - spring-cloud-network
+      - spring-cloud-kubernetes-network
 
   auth-server:
     build:
@@ -18,7 +18,7 @@ services:
     ports:
       - 8180:8080
     networks:
-      - spring-cloud-network
+      - spring-cloud-kubernetes-network
 
   guest-service:
     image: zhoozhoo/spring-cloud-guest-service
@@ -28,7 +28,7 @@ services:
     entrypoint:
       [
         "./dockerize",
-        "-wait=tcp://auth-server:8180",
+        "-wait=tcp://host.docker.internal:8180",
         "-timeout=120s",
         "--",
         "java",
@@ -37,7 +37,7 @@ services:
     ports:
       - 8800:8800
     networks:
-      - spring-cloud-network
+      - spring-cloud-kubernetes-network
 
   reservation-service:
     image: zhoozhoo/spring-cloud-reservation-service
@@ -47,7 +47,7 @@ services:
     entrypoint:
       [
         "./dockerize",
-        "-wait=tcp://auth-server:8180",
+        "-wait=tcp://host.docker.internal:8180",
         "-timeout=120s",
         "--",
         "java",
@@ -56,7 +56,7 @@ services:
     ports:
       - 8801:8801
     networks:
-      - spring-cloud-network
+      - spring-cloud-kubernetes-network
 
   room-service:
     image: zhoozhoo/spring-cloud-room-service
@@ -66,7 +66,7 @@ services:
     entrypoint:
       [
         "./dockerize",
-        "-wait=tcp://auth-server:8180",
+        "-wait=tcp://host.docker.internal:8180",
         "-timeout=120s",
         "--",
         "java",
@@ -75,7 +75,7 @@ services:
     ports:
       - 8802:8802
     networks:
-      - spring-cloud-network
+      - spring-cloud-kubernetes-network
 
   room-reservation-service:
     image: zhoozhoo/spring-cloud-room-reservation-service
@@ -88,7 +88,7 @@ services:
     entrypoint:
       [
         "./dockerize",
-        "-wait=tcp://auth-server:8180",
+        "-wait=tcp://host.docker.internal:8180",
         "-timeout=120s",
         "--",
         "java",
@@ -97,7 +97,7 @@ services:
     ports:
       - 8803:8803
     networks:
-      - spring-cloud-network
+      - spring-cloud-kubernetes-network
 
   api-gateway:
     image: zhoozhoo/spring-cloud-api-gateway
@@ -107,7 +107,7 @@ services:
     entrypoint:
       [
         "./dockerize",
-        "-wait=tcp://auth-server:8180",
+        "-wait=tcp://host.docker.internal:8180",
         "-timeout=120s",
         "--",
         "java",
@@ -116,7 +116,7 @@ services:
     ports:
       - 8080:8080
     networks:
-      - spring-cloud-network
+      - spring-cloud-kubernetes-network
 
   admin-server:
     image: zhoozhoo/spring-cloud-admin-server
@@ -124,8 +124,8 @@ services:
     ports:
       - 9090:9090
     networks:
-      - spring-cloud-network
+      - spring-cloud-kubernetes-network
 
 networks:
-    spring-cloud-network:
+    spring-cloud-kubernetes-network:
         driver: bridge
