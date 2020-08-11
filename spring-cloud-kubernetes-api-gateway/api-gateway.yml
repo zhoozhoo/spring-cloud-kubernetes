@@ -7,10 +7,10 @@ metadata:
   name: api-gateway
 spec:
   ports:
-  - name: http
-    port: &target 8080
-    protocol: TCP
-    targetPort: *target
+    - name: http
+      port: &target 8080
+      protocol: TCP
+      targetPort: *target
   selector:
     app: api-gateway
     group: ca.zhoozhoo.spring.cloud.kubernetes
@@ -42,7 +42,7 @@ spec:
         livenessProbe:
           failureThreshold: 3
           httpGet:
-            path: /actuator/health
+            path: /actuator/health/livenessProbe
             port: &target 8080
             scheme: HTTP
           initialDelaySeconds: 180
@@ -50,11 +50,11 @@ spec:
         readinessProbe:
           failureThreshold: 3
           httpGet:
-            path: /actuator/health
+            path: /actuator/health/readiness
             port: *target
             scheme: HTTP
           initialDelaySeconds: 10
           successThreshold: 1
         ports:
-        - name: http
-          containerPort: *target
+          - name: http
+            containerPort: *target

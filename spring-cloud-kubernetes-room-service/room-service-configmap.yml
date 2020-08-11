@@ -21,9 +21,12 @@ data:
               issuer-uri: http://host.docker.internal:8180/auth/realms/spring-cloud-gateway-realm
     management:
       endpoint:
-        restart:
-          enabled: true
         health:
           enabled: true
+          group:
+            liveness:
+              include: livenessStateProbeIndicator
+            readiness:
+              include: readinessStateProbeIndicator
         info:
           enabled: true

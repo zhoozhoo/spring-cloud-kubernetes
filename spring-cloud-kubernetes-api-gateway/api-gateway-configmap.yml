@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: api-gateway
 data:
-  application.yml: |-
+  application.yaml: |-
     server:
       port: 8080
     spring:
@@ -48,15 +48,18 @@ data:
                 issuer-uri: http://host.docker.internal:8180/auth/realms/spring-cloud-gateway-realm
                 user-name-attribute: preferred_username
             registration:
-              gateway:
+              keycloack:
                 provider: keycloack
                 client-id: spring-cloud-gateway-client
                 client-secret: 4ac9fb73-4cdc-4c3d-b35a-faadbfdc07db
     management:
       endpoint:
-        restart:
-          enabled: true
         health:
           enabled: true
+          group:
+            liveness:
+              include: livenessStateProbeIndicator
+            readiness:
+              include: readinessStateProbeIndicator
         info:
           enabled: true
