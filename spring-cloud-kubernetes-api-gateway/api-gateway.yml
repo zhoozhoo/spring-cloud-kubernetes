@@ -39,6 +39,17 @@ spec:
       - name: api-gateway
         image: zhoozhoo/spring-cloud-kubernetes-api-gateway:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: OAUTH2_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: api-gateway
+              key: client-id
+        - name: OAUTH2_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: api-gateway
+              key: client-secret
         livenessProbe:
           failureThreshold: 3
           httpGet:

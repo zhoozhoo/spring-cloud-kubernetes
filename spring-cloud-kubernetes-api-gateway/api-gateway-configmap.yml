@@ -50,8 +50,8 @@ data:
             registration:
               keycloack:
                 provider: keycloack
-                client-id: spring-cloud-gateway-client
-                client-secret: 4ac9fb73-4cdc-4c3d-b35a-faadbfdc07db
+                client-id: ${OAUTH2_CLIENT_ID}
+                client-secret: ${OAUTH2_CLIENT_SECRET}
     management:
       endpoint:
         health:
