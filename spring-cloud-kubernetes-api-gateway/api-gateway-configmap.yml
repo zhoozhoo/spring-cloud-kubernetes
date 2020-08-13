@@ -56,10 +56,5 @@ data:
       endpoint:
         health:
           enabled: true
-          group:
-            liveness:
-              include: livenessStateProbeIndicator
-            readiness:
-              include: readinessStateProbeIndicator
         info:
           enabled: true
