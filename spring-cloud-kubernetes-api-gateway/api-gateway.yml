@@ -53,7 +53,7 @@ spec:
         livenessProbe:
           failureThreshold: 3
           httpGet:
-            path: /actuator/health/livenessProbe
+            path: /actuator/health/liveness
             port: &target 8080
             scheme: HTTP
           initialDelaySeconds: 180
