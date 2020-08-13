@@ -39,22 +39,36 @@ spec:
       - name: room-reservation-service
         image: zhoozhoo/spring-cloud-kubernetes-room-reservation-service:latest
         imagePullPolicy: IfNotPresent
-        livenessProbe:
-          failureThreshold: 3
+        startupProbe:
           httpGet:
             path: /actuator/health/liveness
-            port: &target 8080
-            scheme: HTTP
-          initialDelaySeconds: 180
-          successThreshold: 1
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /actuator/health/readiness
-            port: *target
+            port: 8080
             scheme: HTTP
           initialDelaySeconds: 10
+          periodSeconds: 3
+          timeoutSeconds: 1
+          failureThreshold: 20
+          successThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port:  8080
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 15
+          timeoutSeconds: 1
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
           successThreshold: 1
         ports:
         - name: http
-          containerPort: *target
+          containerPort: 8080
