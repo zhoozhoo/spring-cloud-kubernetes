@@ -56,7 +56,6 @@ public class SecurityConfig {
                                 .stream().map(roleName -> "ROLE_" + roleName).map(SimpleGrantedAuthority::new)
                                 .collect(Collectors.toList()));
             }
-
         });
 
         return jwtAuthenticationConverter;
@@ -72,10 +71,9 @@ public class SecurityConfig {
 
             @Override
             public Map<String, Object> convert(Map<String, Object> claims) {
-                Map<String, Object> convertedClaims =
-                        MappedJwtClaimSetConverter.withDefaults(Collections.emptyMap()).convert(claims);
-                String username = (String) convertedClaims.get("preferred_username");
-                convertedClaims.put("sub", username);
+                var convertedClaims = MappedJwtClaimSetConverter.withDefaults(Collections.emptyMap()).convert(claims);
+                convertedClaims.put("sub", (String) convertedClaims.get("preferred_username"));
+
                 return convertedClaims;
             }
         });

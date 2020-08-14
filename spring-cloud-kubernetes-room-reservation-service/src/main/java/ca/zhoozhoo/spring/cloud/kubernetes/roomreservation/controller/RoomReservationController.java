@@ -43,7 +43,7 @@ public class RoomReservationController {
                             .zipWith(webClient.get().uri("http://guest-service/guests/{id}", reservation.getGuestId())
                                     .headers(httpHeaders -> httpHeaders.setAll(headers)).retrieve()
                                     .bodyToMono(Guest.class), (room, guest) -> {
-                                        RoomReservation roomReservation = new RoomReservation();
+                                        var roomReservation = new RoomReservation();
                                         roomReservation.setDate(date);
                                         roomReservation.setRoomId(room.getId());
                                         roomReservation.setRoomName(room.getName());
