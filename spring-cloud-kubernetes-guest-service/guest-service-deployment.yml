@@ -1,44 +1,41 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: reservation-service
-  labels:
-    app: reservation-service
-    group: ca.zhoozhoo.spring.cloud.kubernetes
-spec:
-  ports:
-  - name: http
-    port: &target 8080
-    protocol: TCP
-    targetPort: *target
-  selector:
-    app: reservation-service
-    group: ca.zhoozhoo.spring.cloud.kubernetes
-  type: NodePort
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reservation-service
+  name: guest-service
   labels:
-    app: reservation-service
+    app: guest-service
+    version: 0.0.1-SNAPSHOT
     group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: reservation-service
+      app: guest-service
       group: ca.zhoozhoo.spring.cloud.kubernetes
   template:
     metadata:
       labels:
-        app: reservation-service
+        app: guest-service
+        version: 0.0.1-SNAPSHOT
         group: ca.zhoozhoo.spring.cloud.kubernetes
     spec:
       containers:
-      - name: reservation-service
-        image: zhoozhoo/spring-cloud-kubernetes-reservation-service:latest
+      - name: guest-service
+        image: zhoozhoo/spring-cloud-kubernetes-guest-service:latest
         imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         startupProbe:
           httpGet:
             path: /actuator/health/liveness

@@ -1,44 +1,41 @@
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: admin-server
-    group: ca.zhoozhoo.spring.cloud.kubernetes
-  name: admin-server
-spec:
-  ports:
-  - name: http
-    port: 9090
-    protocol: TCP
-    targetPort: 8080
-  selector:
-    app: admin-server
-    group: ca.zhoozhoo.spring.cloud.kubernetes
-  type: LoadBalancer
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-server
+  name: reservation-service
   labels:
-    app: admin-server
+    app: reservation-service
+    version: 0.0.1-SNAPSHOT
     group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: admin-server
+      app: reservation-service
       group: ca.zhoozhoo.spring.cloud.kubernetes
   template:
     metadata:
       labels:
-        app: admin-server
+        app: reservation-service
+        version: 0.0.1-SNAPSHOT
         group: ca.zhoozhoo.spring.cloud.kubernetes
     spec:
       containers:
-      - name: admin-server
-        image: zhoozhoo/spring-cloud-kubernetes-admin-server:latest
+      - name: reservation-service
+        image: zhoozhoo/spring-cloud-kubernetes-reservation-service:latest
         imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         startupProbe:
           httpGet:
             path: /actuator/health/liveness

@@ -1,44 +1,41 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: room-service
-  labels:
-    app: room-service
-    group: ca.zhoozhoo.spring.cloud.kubernetes
-spec:
-  ports:
-  - name: http
-    port: &target 8080
-    protocol: TCP
-    targetPort: *target
-  selector:
-    app: room-service
-    group: ca.zhoozhoo.spring.cloud.kubernetes
-  type: NodePort
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: room-service
+  name: admin-server
   labels:
-    app: room-service
+    app: admin-server
+    version: 0.0.1-SNAPSHOT
     group: ca.zhoozhoo.spring.cloud.kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: room-service
+      app: admin-server
       group: ca.zhoozhoo.spring.cloud.kubernetes
   template:
     metadata:
       labels:
-        app: room-service
+        app: admin-server
+        version: 0.0.1-SNAPSHOT
         group: ca.zhoozhoo.spring.cloud.kubernetes
     spec:
       containers:
-      - name: room-service
-        image: zhoozhoo/spring-cloud-kubernetes-room-service:latest
+      - name: admin-server
+        image: zhoozhoo/spring-cloud-kubernetes-admin-server:latest
         imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         startupProbe:
           httpGet:
             path: /actuator/health/liveness
